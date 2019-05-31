@@ -1,0 +1,35 @@
+<html>
+
+<body>
+    <div>
+        <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type="submit" value="Sign Out"/>
+        </form>
+    </div>
+    <div>
+        <form method="POST" action="/main">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <input type ="text" name="text" placeholder="Введите сообщение" />
+            <input type ="text" name="tag" placeholder="Тег"/>
+            <button type="submit">Добавить</button>
+        </form>
+    </div>
+    <div>
+        <form method="POST" action="filter">
+            <input type = "text" name = "filter">
+            <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+            <button type="submit">Find</button>
+        </form>
+    </div>
+    <div>Message list</div>
+    {{#messages}}
+    <div>
+    <b>{{id}}</b>
+    <span>{{text}}</span>
+    <i>{{tag}}</i>
+    <strong>{{authorName}}</strong>
+    </div>
+    {{/messages}}
+</body>
+</html>
