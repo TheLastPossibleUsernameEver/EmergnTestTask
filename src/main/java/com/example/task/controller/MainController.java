@@ -1,24 +1,24 @@
 package com.example.task.controller;
 
-import com.example.task.domain.Message;
 import com.example.task.domain.User;
-import com.example.task.repos.MessageRepo;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.task.repos.UserRepo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @Controller
 public class MainController {
 
-    private final MessageRepo messageRepo;
+    private final UserRepo userRepo;
 
-    public MainController(MessageRepo messageRepo) {
-        this.messageRepo = messageRepo;
+    public MainController(UserRepo userRepo) {
+        this.userRepo = userRepo;
     }
 
     @GetMapping("/")
@@ -28,35 +28,37 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(Map<String, Object> model){
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
+    public String main(  Map<String, Object> model){
+        Iterable<User> users = userRepo.findAll();
+        model.put("users", users);
         return "main";
     }
-    @PostMapping("/main")
-    public String add(
-            @AuthenticationPrincipal User user,
-            @RequestParam String text,
-            @RequestParam String tag,
-            Map<String, Object> model
-    ) {
-        Message message = new Message(text, tag, user);
-        messageRepo.save(message);
-        Iterable<Message> messages = messageRepo.findAll();
-        model.put("messages", messages);
-        return "main";
-    }
+//    @PostMapping("/main")
+//    public String add(
+//            @AuthenticationPrincipal User user,
+//            @RequestParam String text,
+//            @RequestParam String tag,
+//            Map<String, Object> model
+//    ) {
+//        Message message = new Message(text, tag, user);
+//        messageRepo.save(message);
+//        Iterable<Message> messages = messageRepo.findAll();
+//        model.put("users", users);
+//        return "main";
+//    }
     @PostMapping("filter")
     public String filter(@RequestParam String filter, Map<String, Object> model){
-        Iterable<Message> messages;
+
+        List<User> users = new ArrayList<>();
 
         if(filter != null && !filter.isEmpty()){
-        messages = messageRepo.findByTag(filter);
-        } else{
-        messages = messageRepo.findAll();
-        }
 
-        model.put("messages", messages);
+        users.add(userRepo.findByUsername(filter));
+
+        } else{
+        users = userRepo.findAll();}
+
+        model.put("users", users);
 
         return "main";
     }

@@ -19,17 +19,18 @@
         <form method="POST" action="filter">
             <input type = "text" name = "filter">
             <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-            <button type="submit">Find</button>
+            <button type="submit">Find by username</button>
         </form>
     </div>
-    <div>Message list</div>
-    {{#messages}}
+    <div>User list:</div>
+    <div></div>
+    {{#users}}
     <div>
-    <b>{{id}}</b>
-    <span>{{text}}</span>
-    <i>{{tag}}</i>
-    <strong>{{authorName}}</strong>
+    <b>{{username}}</b>
+        <i>{{#email}}
+            {{.}}
+        {{/email}}</i>
     </div>
-    {{/messages}}
+    {{/users}}
 </body>
 </html>

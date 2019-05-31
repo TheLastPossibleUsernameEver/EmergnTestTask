@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Spring Security</title>
 </head>
@@ -9,11 +9,12 @@ Add new user
     {{message}}
 {{/message}}
 <form action="/registration" method="post">
-    <div><label> User Name : <input type="text" name ="username"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label> User Name: <input type="text"    name ="username"/></label></div>
+    <div><label> Password: <input type="password" name="password"/></label></div>
+    <div><label> E-mail: <input type="email"      name="email" /></label></div>
     <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
+    <div><input type="submit" value="Register"/></div>
+</form>l,
 <a href="/login">Вернуться к авторизации</a>
 </body>
 </html>
